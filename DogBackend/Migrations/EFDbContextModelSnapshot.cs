@@ -102,17 +102,9 @@ namespace DogBackend.Migrations
 
                     b.Property<long>("RoleId");
 
-                    b.Property<long?>("RoleId1");
-
-                    b.Property<long?>("UserId1");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles");
                 });
@@ -189,23 +181,15 @@ namespace DogBackend.Migrations
 
             modelBuilder.Entity("DogBackend.DAL.Entities.DbUserRole", b =>
                 {
-                    b.HasOne("DogBackend.DAL.Entities.DbRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DogBackend.DAL.Entities.DbRole", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("DogBackend.DAL.Entities.DbUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DogBackend.DAL.Entities.DbUser", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
