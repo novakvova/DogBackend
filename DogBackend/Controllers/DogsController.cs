@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DogBackend.DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,19 +19,18 @@ namespace DogBackend.Controllers
     [Route("api/[controller]")]
     public class DogsController : ControllerBase
     {
+        private readonly EFDbContext _context;
+        
+        public DogsController(EFDbContext context)
+        {
+            _context = context;
+        }
         [HttpGet]
         public IActionResult DogList()
         {
             var dogs = new List<DogVM>
             {
-                new DogVM {
-                    Id =1,
-                    Name ="Шарік лизак",
-                    Image ="https://85.img.avito.st/640x480/5408090485.jpg" },
-                new DogVM {
-                    Id =2,
-                    Name ="Бім до ноги прилип",
-                    Image ="https://images.ua.prom.st/1605725118_w640_h640_kopilka-sobaka-sharik.jpg" }
+                
             };
             return Ok(dogs);
         }

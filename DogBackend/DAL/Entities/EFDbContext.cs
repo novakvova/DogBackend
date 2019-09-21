@@ -15,8 +15,9 @@ namespace DogBackend.DAL.Entities
         public EFDbContext(DbContextOptions<EFDbContext> options)
             : base(options)
         {
-
         }
+
+        public virtual DbSet<DbDog> Dogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
