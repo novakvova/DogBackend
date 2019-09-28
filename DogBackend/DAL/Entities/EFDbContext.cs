@@ -18,6 +18,7 @@ namespace DogBackend.DAL.Entities
         }
 
         public virtual DbSet<DbDog> Dogs { get; set; }
+        public virtual DbSet<DbBreed> Breeds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

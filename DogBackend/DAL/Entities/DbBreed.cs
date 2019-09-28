@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace DogBackend.DAL.Entities
 {
-    [Table("tblDogs")]
-    public class DbDog
+    [Table("tblBreeds")]
+    public class DbBreed
     {
         [Key]
         public int Id { get; set; }
         [Required, StringLength(255)]
         public string Name { get; set; }
-        [StringLength(256)]
+        [StringLength(255)]
         public string Image { get; set; }
-        [ForeignKey("Breed")]
-        public int BreedId { get; set; }
-        public virtual DbBreed Breed { get; set; }
+        public bool IsShow { get; set; }
+        public virtual ICollection<DbDog> Dogs { get; set; }
     }
 }

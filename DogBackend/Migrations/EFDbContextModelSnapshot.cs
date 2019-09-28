@@ -19,11 +19,33 @@ namespace DogBackend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DogBackend.DAL.Entities.DbBreed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("IsShow");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblBreeds");
+                });
+
             modelBuilder.Entity("DogBackend.DAL.Entities.DbDog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BreedId");
 
                     b.Property<string>("Image")
                         .HasMaxLength(256);
@@ -33,6 +55,8 @@ namespace DogBackend.Migrations
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BreedId");
 
                     b.ToTable("tblDogs");
                 });
@@ -195,6 +219,14 @@ namespace DogBackend.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DogBackend.DAL.Entities.DbDog", b =>
+                {
+                    b.HasOne("DogBackend.DAL.Entities.DbBreed", "Breed")
+                        .WithMany("Dogs")
+                        .HasForeignKey("BreedId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DogBackend.DAL.Entities.DbUserRole", b =>

@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DogBackend.DAL.Entities;
+using DogBackend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DogBackend.Controllers
 {
-    public class DogVM
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
-    }
-
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class DogsController : ControllerBase
@@ -28,11 +22,14 @@ namespace DogBackend.Controllers
         [HttpGet]
         public IActionResult DogList()
         {
-            var dogs = new List<DogVM>
+            var model = _context.Dogs.Select(d => new DogVM
             {
-                
-            };
-            return Ok(dogs);
+                Id=d.Id,
+                Name=d.Name,
+                Image=d.Image
+            }).ToList();
+
+            return Ok(model);
         }
     }
 }
