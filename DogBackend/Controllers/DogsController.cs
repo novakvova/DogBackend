@@ -31,5 +31,18 @@ namespace DogBackend.Controllers
 
             return Ok(model);
         }
+        [HttpPost("create")]
+        public IActionResult Create([FromBody]DogCreateVM model)
+        {
+            DbDog dog = new DbDog
+            {
+                BreedId = model.BreedId,
+                Name = "No name",
+                Image = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+            };
+            _context.Dogs.Add(dog);
+            _context.SaveChanges();
+            return Ok(dog);
+        }
     }
 }

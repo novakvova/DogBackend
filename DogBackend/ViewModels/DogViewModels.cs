@@ -11,4 +11,10 @@ namespace DogBackend.ViewModels
         public string Name { get; set; }
         public string Image { get; set; }
     }
+    public class DogCreateVM
+    {
+        public string Name { get; set; }
+        public int BreedId { get; set; }
+        public string Image { get; set; }
+    }
 }
